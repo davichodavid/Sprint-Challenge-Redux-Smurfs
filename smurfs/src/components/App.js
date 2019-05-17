@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSmurfs } from '../actions';
+import { getSmurfs, addNewSmurfs } from '../actions';
 
 import './App.css';
 /*
@@ -10,9 +10,38 @@ import './App.css';
  `How do I ensure that my component links the state to props?`
  */
 class App extends Component {
+  state = {
+    newSmurf: {
+      name: '',
+      age: '',
+      height: ''
+    }
+  }
 
   componentDidMount() {
     this.props.getSmurfs();
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.addNewSmurfs(this.state.newSmurf)
+
+    this.setState({
+      newSmurf: {
+        name: '',
+        age: '',
+        height: ''
+      }
+    })
+  }
+
+  handleChanges = event => {
+    this.setState({
+      newSmurf: {
+        ...this.state.newSmurf,
+        [event.target.name]: event.target.value
+      }
+    })
   }
 
   render() {
@@ -27,6 +56,27 @@ class App extends Component {
             <p>{`Height: ${oneSmurf.height}`}</p>
           </div>
         ))}
+        <div>
+          <h2>Add a New Smurf</h2>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              placeholder='Name'
+              name="name"
+              value={this.state.newSmurf.name}
+              onChange={this.handleChanges} />
+            <input
+              placeholder='Age'
+              name="age"
+              value={this.state.newSmurf.age}
+              onChange={this.handleChanges} />
+            <input
+              placeholder='Height'
+              name="height"
+              value={this.state.newSmurf.height}
+              onChange={this.handleChanges} />
+            <button onClick={this.handleSubmit}>Add</button>
+          </form>
+        </div>
       </div>
     );
   }
@@ -38,4 +88,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getSmurfs })(App);
+export default connect(mapStateToProps, { getSmurfs, addNewSmurfs })(App);

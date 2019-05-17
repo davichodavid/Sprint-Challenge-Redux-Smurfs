@@ -2,7 +2,9 @@
   Be sure to import in all of the action types from `../actions`
 */
 
-import { FETCHING_SMURFS, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE } from '../actions'
+import {
+  FETCHING_SMURFS, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, ADDSMURF, ADDSMURF_SUCCESS, ADDSMURF_ERROR
+} from '../actions'
 
 const initialState = {
   smurfs: [],
@@ -29,8 +31,26 @@ export const rootReducer = (state = initialState, action) => {
       }
     case FETCHING_SMURFS_FAILURE:
       return {
+        ...state,
         error: action.payload
       }
+    case ADDSMURF:
+      return {
+        ...state,
+        addingSmurf: true,
+        error: ''
+      }
+    case ADDSMURF_SUCCESS:
+      return {
+        ...state,
+        smurfs: [...state.smurfs, ...action.payload]
+      }
+    case ADDSMURF_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+
     default:
       return state;
   }

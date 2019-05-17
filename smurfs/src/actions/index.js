@@ -27,6 +27,28 @@ export const getSmurfs = () => dispatch => {
     })
 }
 
+export const ADDSMURF = 'ADDSMURF';
+export const ADDSMURF_SUCCESS = 'ADDSMURF_SUCCESS';
+export const ADDSMURF_ERROR = 'ADDSMURF_ERROR';
+
+export const addNewSmurfs = smurfData => dispatch => {
+  dispatch({ type: ADDSMURF });
+  axios.post('http://localhost:3333/smurfs', smurfData)
+    .then(res => {
+      console.log(res)
+      dispatch({
+        type: ADDSMURF_SUCCESS,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch({
+        type: ADDSMURF_ERROR,
+        payload: err.statusText
+      })
+    })
+}
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -39,4 +61,3 @@ export const getSmurfs = () => dispatch => {
    D - deleteSmurf
 */
 
-// need to map over smurfs and get it to display
