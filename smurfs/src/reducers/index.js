@@ -43,7 +43,7 @@ export const rootReducer = (state = initialState, action) => {
     case ADDSMURF_SUCCESS:
       return {
         ...state,
-        smurfs: [...state.smurfs, ...action.payload]
+        smurfs: [...action.payload]
       }
     case ADDSMURF_ERROR:
       return {
