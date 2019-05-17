@@ -32,9 +32,7 @@ export const rootReducer = (state = initialState, action) => {
         error: action.payload
       }
     default:
-      return {
-        state
-      }
+      return state;
   }
 }
 

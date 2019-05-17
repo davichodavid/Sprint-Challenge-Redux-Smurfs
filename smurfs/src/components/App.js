@@ -16,9 +16,17 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.props.smurfs)
+
     return (
       <div className="App">
-
+        {this.props.smurfs && this.props.smurfs.map(oneSmurf => (
+          <div key={oneSmurf.id}>
+            <h1>{`Name: ${oneSmurf.name}`}</h1>
+            <p>{`Age: ${oneSmurf.age}`}</p>
+            <p>{`Height: ${oneSmurf.height}`}</p>
+          </div>
+        ))}
       </div>
     );
   }
